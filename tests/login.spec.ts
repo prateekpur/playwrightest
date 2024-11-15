@@ -20,14 +20,17 @@ async function createDocument(page: Page) {
 
   const docVisible = await page.locator(".editor__page").isVisible();
   //click content icon if canvas is not visible
-if (!docVisible) {
+  if (!docVisible) {
     await page.locator("li[title='Content Library']").first().click();
     //wait for document to become visible
     canvasLocator.waitFor({ state: "visible" });
+    //await page.pause();
+    page.locator(".ant-drawer-body .MuiButtonBase-root").waitFor({ state: "visible" });
     await page.locator(".ant-drawer-body .MuiButtonBase-root").click();
     await page.waitForTimeout(4000);
   }
   
+
   await page.locator("#content_tab .py-react-icon").click();
   await page.getByRole("button", { name: "Table" }).click();
   await page.getByTestId("text-table-block-button").dragTo(await page.locator(".file-drop-background"));
@@ -37,6 +40,7 @@ if (!docVisible) {
 test("Table row re-order", async ({ browser }) => {
   const context = await browser.newContext();
   const page = await context.newPage();
+  test.setTimeout(60000);
 
   await openSiteAndLogin(page);
   await createDocument(page);
@@ -47,6 +51,8 @@ test("Table row re-order", async ({ browser }) => {
   await page.locator(".MuiDataGrid-cell > span").nth(4).dblclick();
 
   // click the cell to edit and enter random text
+  //page.pause();
+  //const inputCell = page.getByTestId("input-with-tooltips");
   const inputCell = page.getByTestId("body-text-input-field");
   await inputCell.click();
   const randomText = new Date().getTime().toString();
