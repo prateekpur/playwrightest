@@ -1,0 +1,15 @@
+config:
+  target: "https://app.proposify.net/login"
+  phases:
+    - duration: 60   #First phase runs for 5 minutes, starts with 1 user and ramps upto 2 users
+      arrivalRate: 1
+      rampTo: 2
+   ## - duration: 120 #Second phase of 2 minutes, starts with 6 users and maintains load
+   ##   arrivalRate: 6
+
+  processor: "./tests/scale-test.js"
+
+scenarios:
+  - flow:
+      - function: "login"  # Run the Playwright script for each user
+
