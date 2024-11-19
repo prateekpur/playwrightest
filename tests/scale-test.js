@@ -2,6 +2,7 @@ const { chromium } = require("playwright");
 
 async function login(page) {
   await page.goto("https://app.proposify.net/login");
+  //Credentials were removed from public repo , enter updater credentials to fill in. This was discussed with Abhishek
   await page.locator("#pyLoginEmail").fill();
   await page.locator("#pyLoginPassword").fill();
   await page.locator("#pyLoginFormSubmitButton").click();
