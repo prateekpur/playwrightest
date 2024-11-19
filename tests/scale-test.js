@@ -2,8 +2,8 @@ const { chromium } = require("playwright");
 
 async function login(page) {
   await page.goto("https://app.proposify.net/login");
-  await page.locator("#pyLoginEmail").fill("fe.testing+1700946230641@proposify.com");
-  await page.locator("#pyLoginPassword").fill("VBJ!qhj@tzk3edg4zum");
+  await page.locator("#pyLoginEmail").fill();
+  await page.locator("#pyLoginPassword").fill();
   await page.locator("#pyLoginFormSubmitButton").click();
 }
 
